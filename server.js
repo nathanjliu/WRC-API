@@ -170,7 +170,7 @@ app.get('/api/championship/:year', function(req, res) {
     })
 })
 
-app.listen('8081')
+app.listen(process.env.PORT|| '8081')
 
 console.log('Running on port 8081')
 
