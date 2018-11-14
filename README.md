@@ -17,6 +17,8 @@ Note: Supports 2016, 2017 and 2018 only.
 
 Produces the latest top ten result from the current rally.
 
+Short name examples: `catalunya`, `wales`, `germany`, `finland`.
+
 `/api/rally/{shortname}/{year}`
 
 ## Get championship standings
