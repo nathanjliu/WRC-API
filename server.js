@@ -1,10 +1,9 @@
 "use strict"
 
 var express = require('express');
-var fs = require('fs');
 var request = require('request');
 var cheerio = require('cheerio');
-var app     = express();
+var app = express();
 
 const { EVENT_IDS } = require('./event_ids.js')
 
@@ -182,8 +181,6 @@ app.get('/api/championship/:year', function(req, res) {
     })
 })
 
-app.listen(process.env.PORT|| '8081')
-
-console.log('Running on port 8081')
+app.listen(process.env.PORT || '8081')
 
 exports = module.exports = app;
