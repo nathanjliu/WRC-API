@@ -7,7 +7,7 @@ API usage:
 
 ## Get rally IDs
 
-Get shortname, name and ID for rallys from a given year.
+Get shortname, name and ID for rallies from a given year.
 
 Note: Supports 2016, 2017 and 2018 only.
 
