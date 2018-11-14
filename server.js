@@ -146,7 +146,7 @@ app.get('/api/championship/:year', function(req, res) {
                     driver = $(this).text();
                 })
 
-                $(`.table_sude:nth-child(${i}) .points-total`).filter(function() {
+                $(`#points+ .table_h .table_sude:nth-child(${i}) .points-total`).filter(function() {
                     pointsTotal = $(this).text();
                 })
 
@@ -163,7 +163,7 @@ app.get('/api/championship/:year', function(req, res) {
                     driver = $(this).text();
                 })
 
-                $(`.table_liche:nth-child(${i}) .points-total`).filter(function() {
+                $(`#points+ .table_h .table_liche:nth-child(${i}) .points-total`).filter(function() {
                     pointsTotal = $(this).text();
                 })
 
