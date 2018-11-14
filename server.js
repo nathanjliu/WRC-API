@@ -36,7 +36,7 @@ app.get('/api/rally/:shortname/:year', function(req, res) {
 
             let $ = cheerio.load(html);
 
-            let driver, codriver, difference;
+            let driver, codriver, difference, splitDriver;
             let json = { 
                 topTen : [
                     { driver : "", codriver : "", difference: "" },
@@ -68,6 +68,9 @@ app.get('/api/rally/:shortname/:year', function(req, res) {
                     difference = '+' + time[1]
                 })
 
+                splitDriver = driver.split(' ')
+                driver = splitDriver[1] + ' ' + splitDriver[0];
+
                 json.topTen[i-1].driver = driver;
                 json.topTen[i-1].codriver = codriver;
                 json.topTen[i-1].difference = difference;
@@ -87,6 +90,9 @@ app.get('/api/rally/:shortname/:year', function(req, res) {
                     let time = data.split('+')
                     difference = '+' + time[1]
                 })
+
+                splitDriver = driver.split(' ')
+                driver = splitDriver[1] + ' ' + splitDriver[0];
 
                 json.topTen[i-1].driver = driver;
                 json.topTen[i-1].codriver = codriver;
@@ -118,7 +124,7 @@ app.get('/api/championship/:year', function(req, res) {
 
             let $ = cheerio.load(html);
 
-            let driver, pointsTotal;
+            let driver, pointsTotal, splitDriver;
             let json = { 
                 topTen : [
                     { driver : "", points : ""},
@@ -145,6 +151,9 @@ app.get('/api/championship/:year', function(req, res) {
                     pointsTotal = $(this).text();
                 })
 
+                splitDriver = driver.split(' ')
+                driver = splitDriver[1] + ' ' + splitDriver[0];
+
                 json.topTen[i-2].driver = driver;
                 json.topTen[i-2].points = pointsTotal;
 
@@ -158,6 +167,9 @@ app.get('/api/championship/:year', function(req, res) {
                 $(`.table_liche:nth-child(${i}) .points-total`).filter(function() {
                     pointsTotal = $(this).text();
                 })
+
+                splitDriver = driver.split(' ')
+                driver = splitDriver[1] + ' ' + splitDriver[0];
 
                 json.topTen[i-2].driver = driver;
                 json.topTen[i-2].points = pointsTotal;
