@@ -1,6 +1,8 @@
 # WRC-API
 A super basic expressJS API for WRC results.
 
+Uses the INCREDBLE [ewrc-results.com](http://ewrc-results.com). I've donated an you should too if you use this API.
+
 API usage:
 
 ## Get rally IDs
