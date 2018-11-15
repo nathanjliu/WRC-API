@@ -5,7 +5,7 @@ var request = require('request');
 var cheerio = require('cheerio');
 var app = express();
 
-const { EVENT_IDS } = require('./event_ids.js')
+const { EVENT_IDS } = require('../data/event_ids.js')
 
 app.get('/api/rally/getids/:year', function(req, res) {
 
@@ -15,12 +15,23 @@ app.get('/api/rally/getids/:year', function(req, res) {
 
 })
 
-app.get('/api/rally/:shortname/:year', function(req, res) {
+app.get('/api/rally/:name/:year/:id?', function(req, res) {
     //console.log(req.params)
 
-    const rallyYear = req.params.year;
-    const rallyName = EVENT_IDS[rallyYear][req.params.shortname].name; 
-    const rallyId = EVENT_IDS[rallyYear][req.params.shortname].id;
+    let rallyYear = req.params.year;
+    let rallyName, rallyId;
+    
+    if ((req.params.name).includes('-')) {
+        rallyName = req.params.name;
+    } else {
+        rallyName = EVENT_IDS[rallyYear][req.params.name].name; 
+    }
+    
+    if (!req.params.id) {
+        rallyId = EVENT_IDS[rallyYear][req.params.name].id;
+    } else {
+        rallyId = req.params.id
+    }
 
     let url = `https://www.ewrc-results.com/results/${rallyId}-${rallyName}-${rallyYear}/`
 
@@ -35,20 +46,9 @@ app.get('/api/rally/:shortname/:year', function(req, res) {
 
             let $ = cheerio.load(html);
 
-            let driver, codriver, difference, splitDriver;
+            let driver, codriver, difference, splitDriver, splitCodriver, entry;
             let json = { 
-                topTen : [
-                    { driver : "", codriver : "", difference: "" },
-                    { driver : "", codriver : "", difference: "" },
-                    { driver : "", codriver : "", difference: "" },
-                    { driver : "", codriver : "", difference: "" },
-                    { driver : "", codriver : "", difference: "" },
-                    { driver : "", codriver : "", difference: "" },
-                    { driver : "", codriver : "", difference: "" },
-                    { driver : "", codriver : "", difference: "" },
-                    { driver : "", codriver : "", difference: "" },
-                    { driver : "", codriver : "", difference: "" },
-                ]
+                topTen : []
             }
 
             for(var i = 1; i < 11;) {
@@ -69,10 +69,11 @@ app.get('/api/rally/:shortname/:year', function(req, res) {
 
                 splitDriver = driver.split(' ')
                 driver = splitDriver[1] + ' ' + splitDriver[0];
+                splitCodriver = codriver.split(' ')
+                codriver = splitCodriver[1] + ' ' + splitCodriver[0];
 
-                json.topTen[i-1].driver = driver;
-                json.topTen[i-1].codriver = codriver;
-                json.topTen[i-1].difference = difference;
+                entry = { driver : driver, codriver : codriver, difference: difference };
+                (json.topTen).push(entry);
 
                 i++;
 
@@ -92,10 +93,11 @@ app.get('/api/rally/:shortname/:year', function(req, res) {
 
                 splitDriver = driver.split(' ')
                 driver = splitDriver[1] + ' ' + splitDriver[0];
+                splitCodriver = codriver.split(' ')
+                codriver = splitCodriver[1] + ' ' + splitCodriver[0];
 
-                json.topTen[i-1].driver = driver;
-                json.topTen[i-1].codriver = codriver;
-                json.topTen[i-1].difference = difference;
+                entry = { driver : driver, codriver : codriver, difference: difference };
+                (json.topTen).push(entry);
 
                 i++;
             }
@@ -123,20 +125,9 @@ app.get('/api/championship/:year', function(req, res) {
 
             let $ = cheerio.load(html);
 
-            let driver, pointsTotal, splitDriver;
+            let driver, pointsTotal, splitDriver, entry;
             let json = { 
-                topTen : [
-                    { driver : "", points : ""},
-                    { driver : "", points : ""},
-                    { driver : "", points : ""},
-                    { driver : "", points : ""},
-                    { driver : "", points : ""},
-                    { driver : "", points : ""},
-                    { driver : "", points : ""},
-                    { driver : "", points : ""},
-                    { driver : "", points : ""},
-                    { driver : "", points : ""},
-                ]
+                topTen : []
             }
 
             for(var i = 2; i < 12;) {
@@ -153,11 +144,13 @@ app.get('/api/championship/:year', function(req, res) {
                 splitDriver = driver.split(' ')
                 driver = splitDriver[1] + ' ' + splitDriver[0];
 
+                entry = { driver : driver, points : pointsTotal };
+                (json.topTen).push(entry);
+
                 json.topTen[i-2].driver = driver;
                 json.topTen[i-2].points = pointsTotal;
 
                 i++;
-
 
                 $(`.table_liche:nth-child(${i}) a`).filter(function() {
                     driver = $(this).text();
@@ -170,8 +163,8 @@ app.get('/api/championship/:year', function(req, res) {
                 splitDriver = driver.split(' ')
                 driver = splitDriver[1] + ' ' + splitDriver[0];
 
-                json.topTen[i-2].driver = driver;
-                json.topTen[i-2].points = pointsTotal;
+                entry = { driver : driver, points : pointsTotal };
+                (json.topTen).push(entry);
 
                 i++;
             }
