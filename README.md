@@ -3,7 +3,7 @@ A super basic expressJS API for WRC results.
 
 Uses the INCREDBLE [ewrc-results.com](http://ewrc-results.com). I've donated an you should too if you use this API.
 
-API usage:
+You can test usage at: http://wrc-api.herokuapp.com/. Please keep usage low and host yourself, it's unfair on eWRC results and the free heroku servers won't keep up.
 
 ## Get rally IDs
 
