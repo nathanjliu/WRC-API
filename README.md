@@ -13,7 +13,7 @@ Get shortname, name and ID for rallies from a given year.
 
 Parameters:
 
-|   |   |
+| Parameter  | Description  |
 |---|---|
 |  year |  Year of event. 2014-2019 only. Note: 2019 may be unreliable until calendar confirmed. |
 
@@ -27,7 +27,7 @@ Short name examples: `catalunya`, `wales`, `germany`, `finland`.
 
 Parameters:
 
-|   |   |
+| Parameter  | Description  |
 |---|---|
 | name  | For WRC events in 2016, 2017 and 2018, accepts a short name such as 'catalunya', 'wales', 'germany.' These can be found using the getids function. For earlier events and those in different competitions, use the full name as presented in an eWRC URL.  |
 | year  |  Year of event |
@@ -41,7 +41,7 @@ Get WRC standings for any year the championship has been active.
 
 Parameters:
 
-|   |   |
+| Parameter  | Description  |
 |---|---|
 |  year |  Year of championship. 1979-2018 supported. |
 
