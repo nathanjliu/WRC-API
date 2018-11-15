@@ -16,7 +16,6 @@ app.get('/api/rally/getids/:year', function(req, res) {
 })
 
 app.get('/api/rally/:name/:year/:id?', function(req, res) {
-    //console.log(req.params)
 
     let rallyYear = req.params.year;
     let rallyName, rallyId;
@@ -39,10 +38,8 @@ app.get('/api/rally/:name/:year/:id?', function(req, res) {
 
     request(url, function(error, response, html){
 
-        // First we'll check to make sure no errors occurred when making the request
 
         if(!error){
-            // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
 
             let $ = cheerio.load(html);
 
@@ -101,8 +98,6 @@ app.get('/api/rally/:name/:year/:id?', function(req, res) {
 
                 i++;
             }
-
-            // Finally, we'll define the variables we're going to capture
 
             res.send(json);
         }
