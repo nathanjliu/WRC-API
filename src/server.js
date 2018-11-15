@@ -113,57 +113,63 @@ app.get('/api/championship/:year', function(req, res) {
     let url = `https://www.ewrc-results.com/season/${year}/1-wrc/`
 
     console.log(url);
+    
+    if (year > 1978) {
 
-    request(url, function(error, response, html){
+        request(url, function(error, response, html){
 
-        if(!error){
+            if(!error){
 
-            let $ = cheerio.load(html);
+                let $ = cheerio.load(html);
 
-            let driver, pointsTotal, splitDriver, entry;
-            let json = { 
-                topTen : []
+                let driver, pointsTotal, splitDriver, entry;
+                let json = { 
+                    topTen : []
+                }
+
+                for(var i = 2; i < 12;) {
+                            
+
+                    $(`.table_sude:nth-child(${i}) a`).filter(function() {
+                        driver = $(this).text();
+                    })
+
+                    $(`#points+ .table_h .table_sude:nth-child(${i}) .points-total`).filter(function() {
+                        pointsTotal = $(this).text();
+                    })
+
+                    splitDriver = driver.split(' ')
+                    driver = splitDriver[1] + ' ' + splitDriver[0];
+
+                    entry = { driver : driver, points : pointsTotal };
+                    (json.topTen).push(entry);
+
+                    i++;
+
+                    $(`.table_liche:nth-child(${i}) a`).filter(function() {
+                        driver = $(this).text();
+                    })
+
+                    $(`#points+ .table_h .table_liche:nth-child(${i}) .points-total`).filter(function() {
+                        pointsTotal = $(this).text();
+                    })
+
+                    splitDriver = driver.split(' ')
+                    driver = splitDriver[1] + ' ' + splitDriver[0];
+
+                    entry = { driver : driver, points : pointsTotal };
+                    (json.topTen).push(entry);
+
+                    i++;
+                }
+
+                res.send(json);
             }
-
-            for(var i = 2; i < 12;) {
-                        
-
-                $(`.table_sude:nth-child(${i}) a`).filter(function() {
-                    driver = $(this).text();
-                })
-
-                $(`#points+ .table_h .table_sude:nth-child(${i}) .points-total`).filter(function() {
-                    pointsTotal = $(this).text();
-                })
-
-                splitDriver = driver.split(' ')
-                driver = splitDriver[1] + ' ' + splitDriver[0];
-
-                entry = { driver : driver, points : pointsTotal };
-                (json.topTen).push(entry);
-
-                i++;
-
-                $(`.table_liche:nth-child(${i}) a`).filter(function() {
-                    driver = $(this).text();
-                })
-
-                $(`#points+ .table_h .table_liche:nth-child(${i}) .points-total`).filter(function() {
-                    pointsTotal = $(this).text();
-                })
-
-                splitDriver = driver.split(' ')
-                driver = splitDriver[1] + ' ' + splitDriver[0];
-
-                entry = { driver : driver, points : pointsTotal };
-                (json.topTen).push(entry);
-
-                i++;
-            }
-
-            res.send(json);
-        }
-    })
+        
+        })
+    } else {
+        res.send('Date not supported');
+    }
 })
 
 app.listen(process.env.PORT || '8081')
