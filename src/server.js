@@ -142,9 +142,6 @@ app.get('/api/championship/:year', function(req, res) {
                 entry = { driver : driver, points : pointsTotal };
                 (json.topTen).push(entry);
 
-                json.topTen[i-2].driver = driver;
-                json.topTen[i-2].points = pointsTotal;
-
                 i++;
 
                 $(`.table_liche:nth-child(${i}) a`).filter(function() {
