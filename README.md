@@ -23,7 +23,7 @@ Produces the latest top ten result from the current rally.
 
 | Parameter  | Description  |
 |---|---|
-| name  | For WRC events in 2016, 2017 and 2018, accepts a short name such as 'catalunya', 'wales', 'germany.' These can be found using the getids function. For earlier events and those in different competitions, use the full name as presented in an eWRC URL.  |
+| name  | For WRC events in 2014-2019, accepts a short name such as 'catalunya', 'wales', 'germany.' These can be found using the getids function. For earlier events and those in different competitions, use the full name as presented in an eWRC URL.  |
 | year  |  Year of event |
 | id (optional) | eWRC ID. Optional for WRC events 2014-2019. Required for all other events.  |
 
