@@ -39,7 +39,7 @@ Get WRC standings for any year the championship has been active.
 
 ## Get driver IDs
 
-`/api/driver/getids/surname`
+`/api/driver/getids/{surname}`
 
 Searches for drivers and their eWRC IDs.
 
