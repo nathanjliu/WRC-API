@@ -31,7 +31,7 @@ app.get('/api/driver/getids/:surname', function(req, res) {
                 results : []
             };
 
-            for(var i = 1; i < 21; i++) {
+            for(var i = 1; i < 51; i++) {
                 $(`.search-event-driver:nth-child(1) tr:nth-child(${i}) .flag-s+ a`).filter(function() {
                     let text = $(this).text();
                     console.log(text)
