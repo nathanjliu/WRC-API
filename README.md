@@ -37,4 +37,28 @@ Get WRC standings for any year the championship has been active.
 |---|---|
 |  year |  Year of championship. 1979-2018 supported. |
 
+## Get driver IDs
+
+`/api/driver/getids/surname`
+
+Searches for drivers and their eWRC IDs.
+
+Returns full name and ID.
+
+| Parameter  | Description  |
+|---|---|
+|  surname |  Surname of a driver |
+
+
+## Get driver stats
+
+`/api/driver/{id}/{firstname}/{surname}`
+
+Gets a drivers WRC statistics: Total Starts, Total Victories, Retirements, Podiums, First Event and Last Event.
+
+| Parameter  | Description  |
+|---|---|
+|  id |  Driver id. Use driver/getids to get id. |
+|  firstname | Optional. First name of the driver |
+| lastname | Optional. Last name of the driver |
 
