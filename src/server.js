@@ -87,7 +87,7 @@ app.get('/api/driver/:id/:firstname?/:surname?', function(req, res) {
                 json.name = data;
             })
 
-            $(`b`).filter(function() {
+            $(`tr:nth-child(3) b`).filter(function() {
                 let data = $(this).text()
                 json.dateOfBirth = data;
             })
