@@ -15,6 +15,87 @@ app.get('/api/rally/getids/:year', function(req, res) {
 
 })
 
+app.get('/api/driver/getids/:surname', function(req, res) {
+
+    const searchQuery = req.params.surname;
+
+    let url = `https://www.ewrc-results.com/search/?find=${searchQuery}`
+
+    request(url, function(error, response, html){
+
+        if(!error) {
+            let $ = cheerio.load(html);
+
+            let id, splitDriver, driver, entry;
+            let json = {
+                results : []
+            };
+
+            for(var i = 1; i < 21; i++) {
+                $(`.search-event-driver:nth-child(1) tr:nth-child(${i}) .flag-s+ a`).filter(function() {
+                    let text = $(this).text();
+                    console.log(text)
+                        text = text.replace(/[$-/]/g, "")
+                        splitDriver = text.split(' ');
+                        driver = splitDriver[2] + ' ' + splitDriver[1];
+
+                        let link = $(this).attr('href');
+                        id = link.replace(/[A-Za-z$-/]/g, "");
+                })
+
+                entry = { id : id, driver : driver };
+                (json.results).push(entry);
+
+                if(i > 1 && id == json.results[i-2].id) { (json.results).pop(); break; };
+            }
+
+            res.send(json);
+            
+        }
+
+    })
+
+})
+
+app.get('/api/driver/:id/:firstname/:surname', function(req, res) {
+
+    const id = req.params.id;
+    const name = req.params.firstname + '-' + req.params.surname;
+
+    let url = `https://www.ewrc-results.com/profile/${id}-${name}/1`
+
+    request(url, function(error, response, html){
+
+        if(!error) {
+            let $ = cheerio.load(html);
+            
+            let json = {
+                wrcResults : {
+                    startsTotal : "",
+                    retirements: "",
+                    victoriesTotal : "",
+                    podiums: "",
+                    firstEvent: "",
+                    lastEvent: "",
+                }
+            };
+
+            for (var i = 0; i < 6; i++) {
+
+                $(`.profile-stats-item:nth-child(1) tr:nth-child(${i+1}) .bold`).filter(function() {
+                    let data = $(this).text();
+                    json.wrcResults[Object.keys(json.wrcResults)[i]] = data;
+                })
+            }
+
+            res.send(json);
+            
+        }
+
+    })
+
+})
+
 app.get('/api/rally/:name/:year/:id?', function(req, res) {
 
     let rallyYear = req.params.year;
