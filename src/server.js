@@ -57,7 +57,7 @@ app.get('/api/driver/getids/:surname', function(req, res) {
 
 })
 
-app.get('/api/driver/:id/:firstname/:surname', function(req, res) {
+app.get('/api/driver/:id/:firstname?/:surname?', function(req, res) {
 
     const id = req.params.id;
     const name = req.params.firstname + '-' + req.params.surname;
@@ -70,6 +70,8 @@ app.get('/api/driver/:id/:firstname/:surname', function(req, res) {
             let $ = cheerio.load(html);
             
             let json = {
+                name: "",
+                dateOfBirth: "",
                 wrcResults : {
                     startsTotal : "",
                     retirements: "",
@@ -79,6 +81,16 @@ app.get('/api/driver/:id/:firstname/:surname', function(req, res) {
                     lastEvent: "",
                 }
             };
+
+            $(`h1`).filter(function() {
+                let data = $(this).text()
+                json.name = data;
+            })
+
+            $(`b`).filter(function() {
+                let data = $(this).text()
+                json.dateOfBirth = data;
+            })
 
             for (var i = 0; i < 6; i++) {
 
