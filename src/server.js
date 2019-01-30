@@ -7,17 +7,17 @@ var app = express();
 
 const { EVENT_IDS } = require('../data/event_ids.js')
 
-app.get('/api/rally/getids/:year', function(req, res) {
+app.get('/api/rally/getids', function(req, res) {
 
-    const year = req.params.year;
+    const year = req.query.year;
 
     res.send(EVENT_IDS[year])
 
 })
 
-app.get('/api/driver/getids/:surname', function(req, res) {
+app.get('/api/driver/getids', function(req, res) {
 
-    const searchQuery = req.params.surname;
+    const searchQuery = req.query.surname;
 
     let url = `https://www.ewrc-results.com/search/?find=${searchQuery}`
 
@@ -57,10 +57,10 @@ app.get('/api/driver/getids/:surname', function(req, res) {
 
 })
 
-app.get('/api/driver/:id/:firstname?/:surname?', function(req, res) {
+app.get('/api/driver', function(req, res) {
 
-    const id = req.params.id;
-    const name = req.params.firstname + '-' + req.params.surname;
+    const id = req.query.id;
+    const name = req.query.firstname + '-' + req.query.surname;
 
     let url = `https://www.ewrc-results.com/profile/${id}-${name}/1`
 
@@ -108,21 +108,21 @@ app.get('/api/driver/:id/:firstname?/:surname?', function(req, res) {
 
 })
 
-app.get('/api/rally/:name/:year/:id?', function(req, res) {
+app.get('/api/rally/', function(req, res) {
 
-    let rallyYear = req.params.year;
+    let rallyYear = req.query.year;
     let rallyName, rallyId;
     
-    if ((req.params.name).includes('-')) {
-        rallyName = req.params.name;
+    if ((req.query.name).includes('-')) {
+        rallyName = req.query.name;
     } else {
-        rallyName = EVENT_IDS[rallyYear][req.params.name].name; 
+        rallyName = EVENT_IDS[rallyYear][req.query.name].name; 
     }
     
-    if (!req.params.id) {
-        rallyId = EVENT_IDS[rallyYear][req.params.name].id;
+    if (!req.query.id) {
+        rallyId = EVENT_IDS[rallyYear][req.query.name].id;
     } else {
-        rallyId = req.params.id
+        rallyId = req.query.id
     }
 
     let url = `https://www.ewrc-results.com/results/${rallyId}-${rallyName}-${rallyYear}/`
@@ -200,9 +200,9 @@ app.get('/api/rally/:name/:year/:id?', function(req, res) {
 })
 
 
-app.get('/api/championship/:year', function(req, res) {
+app.get('/api/championship', function(req, res) {
 
-    let year = req.params.year; 
+    let year = req.query.year; 
     let url = `https://www.ewrc-results.com/season/${year}/1-wrc/`
 
     console.log(url);
