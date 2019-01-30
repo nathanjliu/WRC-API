@@ -7,7 +7,7 @@ You can test usage at: http://wrc-api.herokuapp.com/. Please keep usage low and 
 
 ## Get rally IDs
 
-`/api/rally/getids/{year}`
+`/api/rally/getids?{year}`
 
 Get shortname, name and ID for rallies from a given year.
 
@@ -17,7 +17,7 @@ Get shortname, name and ID for rallies from a given year.
 
 ## Get rally standings
 
-`/api/rally/{name}/{year}/{id}`
+`/api/rally?{name}&{year}&{id}`
 
 Produces the latest top ten result from the current rally.
 
@@ -29,7 +29,7 @@ Produces the latest top ten result from the current rally.
 
 ## Get championship standings
 
-`/api/championship/{year}`
+`/api/championship?{year}`
 
 Get WRC standings for any year the championship has been active.
 
@@ -39,7 +39,7 @@ Get WRC standings for any year the championship has been active.
 
 ## Get driver IDs
 
-`/api/driver/getids/{surname}`
+`/api/driver/getids?{surname}`
 
 Searches for drivers and their eWRC IDs.
 
@@ -52,7 +52,7 @@ Returns full name and ID.
 
 ## Get driver stats
 
-`/api/driver/{id}/{firstname}/{surname}`
+`/api/driver?{id}&{firstname}&{surname}`
 
 Gets a drivers WRC statistics: Total Starts, Total Victories, Retirements, Podiums, First Event and Last Event.
 
