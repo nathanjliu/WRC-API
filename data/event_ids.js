@@ -11,6 +11,7 @@ EVENT_IDS : {
         'chile' : {name: "rally-chile", id: '54463'},
         'portugal' : {name: "vodafone-rally-de-portugal", id: '54466'},
         'sardinia' : {name: "rally-italia-sardegna", id: '54467'},
+        'estonia' : {name: "shell-helix-rally-estonia", id: '54910'},
         'finland' : {name: "neste-rally-finland", id: '54468'},
         'germany' : {name: "adac-rallye-deutschland", id: '54469'},
         'turkey' : {name: "rally-turkey", id: '54470'},
