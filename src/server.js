@@ -63,6 +63,7 @@ app.get('/api/driver', function(req, res) {
     const name = req.query.firstname + '-' + req.query.surname;
 
     let url = `https://www.ewrc-results.com/profile/${id}-${name}/1`
+    console.log(url)
 
     request(url, function(error, response, html){
 
@@ -82,21 +83,22 @@ app.get('/api/driver', function(req, res) {
                 }
             };
 
-            $(`h1`).filter(function() {
+            $(`body > main > div > h4 > a`).filter(function() {
                 let data = $(this).text()
                 json.name = data;
             })
 
-            $(`tr:nth-child(3) b`).filter(function() {
+            $(`body > main > div > div.profile-header.d-flex.justify-content-center.p-1 > div.profile-header-data.m-1 > table > tbody > tr:nth-child(4) > td.font-weight-bold`).filter(function() {
                 let data = $(this).text()
                 json.dateOfBirth = data;
             })
 
-            for (var i = 0; i < 6; i++) {
+            for (var i = 1; i < 7; i++) {
 
-                $(`.profile-stats-item:nth-child(1) tr:nth-child(${i+1}) .bold`).filter(function() {
+                $(`body > main > div > div:nth-child(12) > div:nth-child(1) > table > tbody > tr:nth-child(${i}) > td.font-weight-bold`).filter(function() {
                     let data = $(this).text();
-                    json.wrcResults[Object.keys(json.wrcResults)[i]] = data;
+                    console.log(data)
+                    json.wrcResults[Object.keys(json.wrcResults)[i-1]] = data;
                 })
             }
 
@@ -141,20 +143,26 @@ app.get('/api/rally/', function(req, res) {
                 topTen : []
             }
 
-            for(var i = 1; i < 11;) {
-                
+            for(var i = 1; i < 11; i++) {
 
-                $(`.stage-results-after .table_sude:nth-child(${i}) a`).filter(function() {
+                console.log(i)
+
+                $(`#stage-results > div:nth-child(2) > table > tbody > tr:nth-child(${i}) > td.position-relative.text-left > a`).filter(function() {
                     let data = $(this).text();
                     let pair = data.split(' - ');
+                    console.log(pair)
                     driver = pair[0];
                     codriver = pair[1];
                 })
 
-                $(`.stage-results-after .table_sude:nth-child(${i}) .stage-results-lost`).filter(function() {
+                $(`#stage-results > div:nth-child(2) > table > tbody > tr:nth-child(${i}) > td:nth-child(6)`).filter(function() {
                     let data = $(this).text();
                     let time = data.split('+')
-                    difference = '+' + time[1]
+                    if (time[1] == undefined) {
+                        difference = "+0.0"
+                    } else {
+                        difference = '+' + time[1]
+                    }
                 })
 
                 splitDriver = driver.split(' ')
@@ -164,32 +172,6 @@ app.get('/api/rally/', function(req, res) {
 
                 entry = { driver : driver, codriver : codriver, difference: difference };
                 (json.topTen).push(entry);
-
-                i++;
-
-
-                $(`.stage-results-after .table_liche:nth-child(${i}) a`).filter(function() {
-                    let data = $(this).text();
-                    let pair = data.split(' - ');
-                    driver = pair[0];
-                    codriver = pair[1];
-                })
-
-                $(`.stage-results-after .table_liche:nth-child(${i}) .stage-results-lost`).filter(function() {
-                    let data = $(this).text();
-                    let time = data.split('+')
-                    difference = '+' + time[1]
-                })
-
-                splitDriver = driver.split(' ')
-                driver = splitDriver[1] + ' ' + splitDriver[0];
-                splitCodriver = codriver.split(' ')
-                codriver = splitCodriver[1] + ' ' + splitCodriver[0];
-
-                entry = { driver : driver, codriver : codriver, difference: difference };
-                (json.topTen).push(entry);
-
-                i++;
             }
 
             res.send(json);
@@ -212,48 +194,33 @@ app.get('/api/championship', function(req, res) {
         request(url, function(error, response, html){
 
             if(!error){
-
                 let $ = cheerio.load(html);
+
 
                 let driver, pointsTotal, splitDriver, entry;
                 let json = { 
                     topTen : []
                 }
 
-                for(var i = 2; i < 12;) {
-                            
+                for(var i = 2; i < 12; i++) {
+        
 
-                    $(`.table_sude:nth-child(${i}) a`).filter(function() {
+                    $(`body > main > div > table > tbody > tr:nth-child(${i}) > td.text-left > a`).filter(function() {
                         driver = $(this).text();
                     })
 
-                    $(`#points+ .table_h .table_sude:nth-child(${i}) .points-total`).filter(function() {
+                    $(`body > main > div > table > tbody > tr:nth-child(${i}) > td.points-total.font-weight-bold.text-right`).filter(function() {
+                        console.log($(this).text())
                         pointsTotal = $(this).text();
                     })
-
                     splitDriver = driver.split(' ')
                     driver = splitDriver[1] + ' ' + splitDriver[0];
 
-                    entry = { driver : driver, points : pointsTotal };
-                    (json.topTen).push(entry);
-
-                    i++;
-
-                    $(`.table_liche:nth-child(${i}) a`).filter(function() {
-                        driver = $(this).text();
-                    })
-
-                    $(`#points+ .table_h .table_liche:nth-child(${i}) .points-total`).filter(function() {
-                        pointsTotal = $(this).text();
-                    })
-
-                    splitDriver = driver.split(' ')
-                    driver = splitDriver[1] + ' ' + splitDriver[0];
+                    //FIXME - can't seem to get a reliable number here
+                    pointsTotal = 0
 
                     entry = { driver : driver, points : pointsTotal };
                     (json.topTen).push(entry);
-
-                    i++;
                 }
 
                 res.send(json);

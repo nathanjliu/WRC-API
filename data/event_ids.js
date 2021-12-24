@@ -2,22 +2,66 @@ module.exports = {
 
 EVENT_IDS : {
 
+    '2022' : {
+        'monte' : {name: "rallye-automobile-de-monte-carlo", id: '72281'},
+        'sweden' : {name: "rally-sweden", id: '72282'},
+        'croatia' : {name: "croatia-rally", id: '73359'},
+        'portugal' : {name: "vodafone-rally-de-portugal", id: '73360'},
+        'sardinia' : {name: "rally-italia-sardegna", id: '73361'},
+        'kenya' : {name: "safari-rally-kenya", id: '73362'},
+        'safari' : {name: "safari-rally-kenya", id: '73362'},
+        'estonia' : {name: "rally-estonia", id: '73363'},
+        'finland' : {name: "rally-finland", id: '73364'},
+        'acropolis' : {name: "acropolis-rally", id: '73366'},
+        'greece' : {name: "acropolis-rally", id: '73366'},
+        'new-zealand' : {name: "rally-new-zealand", id: '73367'},
+        'catalunya' : {name: "rallyracc-catalunya-costa-daurada", id: '73368'},
+        'japan' : {name: "rally-japan", id: '73369'},
+    },
+
+    '2021' : {
+        'monte' : {name: "rallye-automobile-de-monte-carlo", id: '41079'},
+        'arctic' : {name: "arctic-rally-finland-powered-by-capitalbox", id: '69715'},
+        'croatia' : {name: "croatia-rally", id: '67214'},
+        'portugal' : {name: "vodafone-rally-de-portugal", id: '68111'},
+        'sardinia' : {name: "rally-italia-sardegna", id: '68112'},
+        'kenya' : {name: "safari-rally-kenya", id: '68112'},
+        'safari' : {name: "safari-rally-kenya", id: '68112'},
+        'estonia' : {name: "rally-estonia", id: '68114'},
+        'belgium' : {name: "renties-ypres-rally-belgium", id: '69179'},
+        'ypres' : {name: "renties-ypres-rally-belgium", id: '69179'},
+        'acropolis' : {name: "eko-acropolis-rally-of-gods", id: '71264'},
+        'greece' : {name: "eko-acropolis-rally-of-gods", id: '71264'},
+        'finland' : {name: "secto-rally-finland", id: '68115'},
+        'catalunya' : {name: "rallyracc-catalunya-costa-daurada", id: '68118'},
+        'monza' : {name: "forum8-aci-rally-monza", id: '72918'},
+    },
+
+    '2020' : {
+        'monte' : {name: "rallye-automobile-de-monte-carlo", id: '59972'},
+        'sweden' : {name: "rally-sweden", id: '60140'},
+        'mexico' : {name: "rally-guanajuato-mexico", id: '60429'},
+        'estonia' : {name: "rally-estonia", id: '61497'},
+        'turkey' : {name: "rally-turkey-marmaris", id: '60436'},
+        'sardinia' : {name: "rally-italia-sardegna", id: '60433'},
+        'monza' : {name: "aci-rally-monza", id: '66881'},
+    },
+
     '2019' : {
         'monte' : {name: "rallye-automobile-de-monte-carlo", id: '52398'},
         'sweden' : {name: "rally-sweden", id: '53052'},
         'mexico' : {name: "rally-guanajuato-mexico", id: '54450'},
         'corsica' : {name: "corsica-linea-tour-de-corse", id: '54464'},
-        'argentina' : {name: "rally-argentina", id: '54465'},
-        'chile' : {name: "rally-chile", id: '54463'},
+        'argentina' : {name: "xion-rally-argentina", id: '54465'},
+        'chile' : {name: "copec-rrally-chile", id: '54463'},
         'portugal' : {name: "vodafone-rally-de-portugal", id: '54466'},
         'sardinia' : {name: "rally-italia-sardegna", id: '54467'},
         'estonia' : {name: "shell-helix-rally-estonia", id: '54910'},
         'finland' : {name: "neste-rally-finland", id: '54468'},
         'germany' : {name: "adac-rallye-deutschland", id: '54469'},
-        'turkey' : {name: "rally-turkey", id: '54470'},
+        'turkey' : {name: "rally-turkey-marmaris", id: '54470'},
         'wales' : {name: "wales-rally-gb", id: '54471'},
-        'catalunya' : {name: "rallyracc-catalunya-costa-daurada", id: '54472'},
-        'australia' : {name: "rally-australia", id: '54473'},
+        'catalunya' : {name: "rallyracc-catalunya-costa-daurada", id: '54472'}
     },
     
     '2018' : {
