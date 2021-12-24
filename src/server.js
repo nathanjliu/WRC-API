@@ -63,6 +63,7 @@ app.get('/api/driver', function(req, res) {
     const name = req.query.firstname + '-' + req.query.surname;
 
     let url = `https://www.ewrc-results.com/profile/${id}-${name}/1`
+    console.log(url)
 
     request(url, function(error, response, html){
 
@@ -82,21 +83,22 @@ app.get('/api/driver', function(req, res) {
                 }
             };
 
-            $(`h1`).filter(function() {
+            $(`body > main > div > h4 > a`).filter(function() {
                 let data = $(this).text()
                 json.name = data;
             })
 
-            $(`tr:nth-child(3) b`).filter(function() {
+            $(`body > main > div > div.profile-header.d-flex.justify-content-center.p-1 > div.profile-header-data.m-1 > table > tbody > tr:nth-child(4) > td.font-weight-bold`).filter(function() {
                 let data = $(this).text()
                 json.dateOfBirth = data;
             })
 
-            for (var i = 0; i < 6; i++) {
+            for (var i = 1; i < 7; i++) {
 
-                $(`.profile-stats-item:nth-child(1) tr:nth-child(${i+1}) .bold`).filter(function() {
+                $(`body > main > div > div:nth-child(12) > div:nth-child(1) > table > tbody > tr:nth-child(${i}) > td.font-weight-bold`).filter(function() {
                     let data = $(this).text();
-                    json.wrcResults[Object.keys(json.wrcResults)[i]] = data;
+                    console.log(data)
+                    json.wrcResults[Object.keys(json.wrcResults)[i-1]] = data;
                 })
             }
 
