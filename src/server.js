@@ -194,48 +194,33 @@ app.get('/api/championship', function(req, res) {
         request(url, function(error, response, html){
 
             if(!error){
-
                 let $ = cheerio.load(html);
+
 
                 let driver, pointsTotal, splitDriver, entry;
                 let json = { 
                     topTen : []
                 }
 
-                for(var i = 2; i < 12;) {
-                            
+                for(var i = 2; i < 12; i++) {
+        
 
-                    $(`.table_sude:nth-child(${i}) a`).filter(function() {
+                    $(`body > main > div > table > tbody > tr:nth-child(${i}) > td.text-left > a`).filter(function() {
                         driver = $(this).text();
                     })
 
-                    $(`#points+ .table_h .table_sude:nth-child(${i}) .points-total`).filter(function() {
+                    $(`body > main > div > table > tbody > tr:nth-child(${i}) > td.points-total.font-weight-bold.text-right`).filter(function() {
+                        console.log($(this).text())
                         pointsTotal = $(this).text();
                     })
-                    console.log(driver)
                     splitDriver = driver.split(' ')
                     driver = splitDriver[1] + ' ' + splitDriver[0];
 
-                    entry = { driver : driver, points : pointsTotal };
-                    (json.topTen).push(entry);
-
-                    i++;
-
-                    $(`.table_liche:nth-child(${i}) a`).filter(function() {
-                        driver = $(this).text();
-                    })
-
-                    $(`#points+ .table_h .table_liche:nth-child(${i}) .points-total`).filter(function() {
-                        pointsTotal = $(this).text();
-                    })
-
-                    splitDriver = driver.split(' ')
-                    driver = splitDriver[1] + ' ' + splitDriver[0];
+                    //FIXME - can't seem to get a reliable number here
+                    pointsTotal = 0
 
                     entry = { driver : driver, points : pointsTotal };
                     (json.topTen).push(entry);
-
-                    i++;
                 }
 
                 res.send(json);
