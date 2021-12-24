@@ -141,20 +141,26 @@ app.get('/api/rally/', function(req, res) {
                 topTen : []
             }
 
-            for(var i = 1; i < 11;) {
-                
+            for(var i = 1; i < 11; i++) {
 
-                $(`.stage-results-after .table_sude:nth-child(${i}) a`).filter(function() {
+                console.log(i)
+
+                $(`#stage-results > div:nth-child(2) > table > tbody > tr:nth-child(${i}) > td.position-relative.text-left > a`).filter(function() {
                     let data = $(this).text();
                     let pair = data.split(' - ');
+                    console.log(pair)
                     driver = pair[0];
                     codriver = pair[1];
                 })
 
-                $(`.stage-results-after .table_sude:nth-child(${i}) .stage-results-lost`).filter(function() {
+                $(`#stage-results > div:nth-child(2) > table > tbody > tr:nth-child(${i}) > td:nth-child(6)`).filter(function() {
                     let data = $(this).text();
                     let time = data.split('+')
-                    difference = '+' + time[1]
+                    if (time[1] == undefined) {
+                        difference = "+0.0"
+                    } else {
+                        difference = '+' + time[1]
+                    }
                 })
 
                 splitDriver = driver.split(' ')
@@ -164,32 +170,6 @@ app.get('/api/rally/', function(req, res) {
 
                 entry = { driver : driver, codriver : codriver, difference: difference };
                 (json.topTen).push(entry);
-
-                i++;
-
-
-                $(`.stage-results-after .table_liche:nth-child(${i}) a`).filter(function() {
-                    let data = $(this).text();
-                    let pair = data.split(' - ');
-                    driver = pair[0];
-                    codriver = pair[1];
-                })
-
-                $(`.stage-results-after .table_liche:nth-child(${i}) .stage-results-lost`).filter(function() {
-                    let data = $(this).text();
-                    let time = data.split('+')
-                    difference = '+' + time[1]
-                })
-
-                splitDriver = driver.split(' ')
-                driver = splitDriver[1] + ' ' + splitDriver[0];
-                splitCodriver = codriver.split(' ')
-                codriver = splitCodriver[1] + ' ' + splitCodriver[0];
-
-                entry = { driver : driver, codriver : codriver, difference: difference };
-                (json.topTen).push(entry);
-
-                i++;
             }
 
             res.send(json);
@@ -230,7 +210,7 @@ app.get('/api/championship', function(req, res) {
                     $(`#points+ .table_h .table_sude:nth-child(${i}) .points-total`).filter(function() {
                         pointsTotal = $(this).text();
                     })
-
+                    console.log(driver)
                     splitDriver = driver.split(' ')
                     driver = splitDriver[1] + ' ' + splitDriver[0];
 

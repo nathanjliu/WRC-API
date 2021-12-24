@@ -8,13 +8,16 @@
     "start": "node src/server.js"
   },
   "dependencies": {
-    "express": "latest",
-    "request": "latest",
-    "cheerio": "latest"
+    "cheerio": "^1.0.0-rc.10",
+    "express": "^4.17.2",
+    "request": "^2.88.2"
   },
   "engines": {
-    "node": "8.x"
+    "node": "16.x"
   },
   "author": "Nathan Liu",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
 }
